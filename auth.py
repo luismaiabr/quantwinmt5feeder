@@ -7,8 +7,8 @@ import requests
 
 from quantwinmt5feeder.config import (
     AUTH_ENDPOINT,
-    GET_TOKEN_PASSWORD,
-    GET_TOKEN_USERNAME,
+    REST_GET_TOKEN_PASSWORD,
+    REST_GET_TOKEN_USERNAME,
     TOKEN_REFRESH_MINUTES,
 )
 
@@ -31,8 +31,8 @@ class TokenManager:
     def fetch_token(self) -> str:
         """Request a brand-new token from the auth endpoint."""
         payload = {
-            "username": GET_TOKEN_USERNAME,
-            "password": GET_TOKEN_PASSWORD,
+            "username": REST_GET_TOKEN_USERNAME,
+            "password": REST_GET_TOKEN_PASSWORD,
         }
         logger.info("Requesting new auth token from %s …", AUTH_ENDPOINT)
 

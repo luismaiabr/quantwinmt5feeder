@@ -95,10 +95,16 @@ def _startup_backfill(
         symbol,
     )
 
-    rates = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M1, start_utc, now_utc)
+    # Wait for MT5 to download history for newly enabled symbols
+    rates = None
+    for _ in range(10):
+        rates = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M1, start_utc, now_utc)
+        if rates is not None and len(rates) > 0:
+            break
+        time.sleep(1)
 
     if rates is None or len(rates) == 0:
-        logger.info("No bars returned for backfill window.")
+        logger.info("No bars returned for backfill window. (History might be empty)")
         return 0
 
     bars = [convert_bar_to_dict(r) for r in rates]

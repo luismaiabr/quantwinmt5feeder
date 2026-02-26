@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 _ENV_PATH = pathlib.Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(_ENV_PATH)
 
-GET_TOKEN_USERNAME: str = os.environ["GET_TOKEN_USERNAME"]
-GET_TOKEN_PASSWORD: str = os.environ["GET_TOKEN_PASSWORD"]
+REST_GET_TOKEN_USERNAME: str = os.environ["REST_GET_TOKEN_USERNAME"]
+REST_GET_TOKEN_PASSWORD: str = os.environ["REST_GET_TOKEN_PASSWORD"]
 
 # ── API ─────────────────────────────────────────────────────────────────────
 API_BASE_URL: str = "https://uptoken.cloud"

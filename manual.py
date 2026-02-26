@@ -58,10 +58,16 @@ def run_backfill(start_sp: datetime, end_sp: datetime) -> None:
         end_sp.strftime("%Y-%m-%d %H:%M"),
     )
 
-    rates = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M1, start_utc, end_utc)
+    # Wait for MT5 to download history (asynchronous)
+    rates = None
+    for _ in range(10):
+        rates = mt5.copy_rates_range(symbol, mt5.TIMEFRAME_M1, start_utc, end_utc)
+        if rates is not None and len(rates) > 0:
+            break
+        time.sleep(1)
 
     if rates is None or len(rates) == 0:
-        logger.info("No bars returned for the requested range.")
+        logger.info("No bars returned for the requested range (history might be empty).")
         mt5.shutdown()
         return
 
