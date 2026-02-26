@@ -12,6 +12,12 @@ load_dotenv(_ENV_PATH)
 REST_GET_TOKEN_USERNAME: str = os.environ["REST_GET_TOKEN_USERNAME"]
 REST_GET_TOKEN_PASSWORD: str = os.environ["REST_GET_TOKEN_PASSWORD"]
 
+# Optional Database URL for gap filling
+DATABASE_URL: str | None = os.environ.get("DATABASE_URL")
+
+# Gap filling configuration
+START_DATE_GAP_FILLING: str = os.environ.get("START_DATE_GAP_FILLING", "2024-01-01 09:00")
+
 # ── API ─────────────────────────────────────────────────────────────────────
 API_BASE_URL: str = "https://uptoken.cloud"
 AUTH_ENDPOINT: str = f"{API_BASE_URL}/api/v1/auth/token"
